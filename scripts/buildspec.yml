@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Instalando dependencias del entorno de build"
+  build:
+    commands:
+      - echo "Empaquetando proyecto"
+
+artifacts:
+  files:
+    - '**/*'

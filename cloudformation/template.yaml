@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Infraestructura para proyecto DevOps con EC2 y S3
+
+Resources:
+  DevOpsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "devops-reservas-${AWS::AccountId}-${AWS::Region}"
+
+  DevOpsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group para proyecto DevOps
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 3000
+          ToPort: 3000
+          CidrIp: 0.0.0.0/0
+
+  DevOpsEC2Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: DevOpsEC2Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  DevOpsInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref DevOpsEC2Role
+
+  DevOpsEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c02fb55956c7d316
+      InstanceType: t2.micro
+      KeyName: REEMPLAZA_CON_TU_KEYPAIR
+      IamInstanceProfile: !Ref DevOpsInstanceProfile
+      SecurityGroupIds:
+        - !Ref DevOpsSecurityGroup
+      Tags:
+        - Key: Name
+          Value: DevOpsProjectEC2
