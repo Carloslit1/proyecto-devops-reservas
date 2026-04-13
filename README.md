@@ -1,7 +1,8 @@
+
 # Proyecto DevOps - Sistema de Reservas Simple
 
 ## Descripción
-Aplicación web para registrar y consultar reservas. El proyecto integra frontend, backend y base de datos. Está preparado para ejecutarse con Docker y desplegarse en AWS mediante infraestructura como código y pipeline CI/CD.
+Aplicación web para registrar y consultar reservas. El proyecto integra frontend, backend y base de datos. Está preparado para ejecutarse localmente con Docker y desplegarse en AWS mediante infraestructura como código y automatización.
 
 ## Arquitectura
 Usuario -> Frontend -> Backend -> MongoDB -> Logs -> S3
