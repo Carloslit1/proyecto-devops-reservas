@@ -26,3 +26,6 @@ GitHub -> CodePipeline -> CodeBuild -> CodeDeploy -> EC2
 - Frontend: 8080
 - Backend: 3000
 - MongoDB: 27017
+
+## Actualización
+Se agregó mejora en la documentación para pruebas de control de versiones.
