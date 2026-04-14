@@ -51,10 +51,23 @@ Resources:
     Properties:
       ImageId: ami-0c02fb55956c7d316
       InstanceType: t2.micro
-      KeyName: REEMPLAZA_CON_TU_KEYPAIR
+      KeyName: vockey
       IamInstanceProfile: !Ref DevOpsInstanceProfile
       SecurityGroupIds:
         - !Ref DevOpsSecurityGroup
       Tags:
         - Key: Name
           Value: DevOpsProjectEC2
+
+Outputs:
+  InstanceId:
+    Description: ID de la instancia EC2
+    Value: !Ref DevOpsEC2Instance
+
+  BucketName:
+    Description: Nombre del bucket S3
+    Value: !Ref DevOpsBucket
+
+  SecurityGroupId:
+    Description: ID del Security Group
+    Value: !Ref DevOpsSecurityGroup
